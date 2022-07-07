@@ -1,5 +1,5 @@
 import { useTheme } from 'next-themes';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { AiFillHome, AiFillPhone } from 'react-icons/ai';
 import {
 	BsBriefcaseFill,
@@ -12,9 +12,11 @@ import { GiAmericanFootballHelmet } from 'react-icons/gi';
 import Button from '../button/Button';
 import MobileNavItem from './MobileNavItem';
 
-type MobileNavProps = {};
+type MobileNavProps = {
+	setMobileMenu: Dispatch<SetStateAction<boolean>>;
+};
 
-const MobileNav: React.FC<MobileNavProps> = () => {
+const MobileNav: React.FC<MobileNavProps> = ({ setMobileMenu }) => {
 	const { theme, setTheme, systemTheme } = useTheme();
 
 	const themeToggler = () => {
@@ -48,18 +50,35 @@ const MobileNav: React.FC<MobileNavProps> = () => {
 	return (
 		<section className="p-3 absolute flex flex-col justify-between rounded-md lg:hidden h-[50vh] w-[20rem] top-[11vh] right-[2vh] bg-dark dark:bg-light shadow-2xl border-2 border-light dark:border-dark">
 			<ul className="flex flex-col items-center justify-center space-y-2 mt-8">
-				<MobileNavItem title="Home" Icon={AiFillHome} path="/" />
-				<MobileNavItem title="About" Icon={BsInfoLg} path="#about" />
+				<MobileNavItem
+					title="Home"
+					Icon={AiFillHome}
+					path="/"
+					setMobileMenu={setMobileMenu}
+				/>
+				<MobileNavItem
+					title="About"
+					Icon={BsInfoLg}
+					path="#about"
+					setMobileMenu={setMobileMenu}
+				/>
 				<MobileNavItem
 					title="Project"
 					Icon={GiAmericanFootballHelmet}
-					path="#project"
+					path="#projects"
+					setMobileMenu={setMobileMenu}
 				/>
-				<MobileNavItem title="Skills" Icon={FaTools} path="#skills" />
+				<MobileNavItem
+					title="Skills"
+					Icon={FaTools}
+					path="#skills"
+					setMobileMenu={setMobileMenu}
+				/>
 				<MobileNavItem
 					title="Experience"
 					Icon={BsBriefcaseFill}
 					path="#experience"
+					setMobileMenu={setMobileMenu}
 				/>
 			</ul>
 

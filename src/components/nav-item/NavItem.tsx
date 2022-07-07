@@ -6,6 +6,7 @@ type NavItemProps = {
 	title: string;
 	Icon: IconType;
 	path: string;
+	onClick: () => void;
 };
 
 const NavItem: React.FC<NavItemProps> = ({ title, Icon, path }) => {
