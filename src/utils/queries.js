@@ -15,3 +15,27 @@ export const projectQuery = `*[_type == "project"]{
     imgUrl,
     tags
   }`;
+
+export const skilQuery = `*[_type == "skill"]{
+  _id,
+  name,
+  icon,
+  shadowColor
+}`;
+
+export const experienceQuery = `*[_type=='workExperience']{
+  _id,
+  role,
+  company,
+  date,
+  duties,
+  techStacks
+}`;
+
+export const educationQuery = `*[_type=='education']{
+  _id,
+  course,
+  institution,
+  date,
+  topics
+}`;

@@ -20,11 +20,11 @@ import MobileNav from '../mobile-nav/MobileNav';
 type HeaderProps = {};
 
 const Header: React.FC<HeaderProps> = () => {
-	const activeNavClassNames = {
-		l1: ``,
-		icon: ``,
-		h2: ``,
-	};
+	// const activeNavClassNames = {
+	// 	l1: ``,
+	// 	icon: ``,
+	// 	h2: ``,
+	// };
 	const [activeNav, setActiveNav] = useState<number>(1);
 
 	const { theme, setTheme, systemTheme } = useTheme();
@@ -62,9 +62,14 @@ const Header: React.FC<HeaderProps> = () => {
 					<div className="rounded-[50%] relative w-10 h-10 overflow-hidden group-hover:animate-spin">
 						<Image src="/engineer.png" layout="fill" objectFit="cover" />
 					</div>
-					<h1 className="font-bold text-md md:text-2xl text-btnLight dark:text-white">
-						HABEEB
-					</h1>
+					<div>
+						<h1 className="font-bold text-xs md:text-base text-purple-500">
+							HABEEB AHMADU
+						</h1>
+						<h2 className=" text-xs md:text-sm text-btnLight dark:text-white">
+							SOFTWARE ENGINEER
+						</h2>
+					</div>
 				</div>
 			</Link>
 
@@ -103,10 +108,12 @@ const Header: React.FC<HeaderProps> = () => {
 
 			<div className="flex items-center space-x-3">
 				{themeToggler()}
-				<Button className="w-32 h-10">
-					<AiFillPhone className="mr-2 animate-bounce" />
-					Hire Me
-				</Button>
+				<Link href="#contacts" passHref>
+					<button className="w-32 h-10 hover:bg-white flex dark:bg-light dark:text-dark dark:hover:bg-white  dark:hover:text-dark items-center justify-center hover:text-dark transition-transform duration-300 ease-in-out  bg-btnLight text-white text-xl font-bold  rounded-md shadow-2xl">
+						<AiFillPhone className="mr-2 animate-bounce" />
+						Hire Me
+					</button>
+				</Link>
 
 				<div className="lg:hidden" onClick={() => setMobileMenu(!mobileMenu)}>
 					<Button className="p-2">

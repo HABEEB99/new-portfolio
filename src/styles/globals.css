@@ -15,4 +15,7 @@
 }
 
 @layer components {
+	.label {
+		@apply transition-all ease-in-out duration-200 absolute font-bold peer-placeholder-shown:px-2 placeholder-shown:text-2xl peer-placeholder-shown:text-gray-600 dark:peer-placeholder-shown:text-gray-300 peer-placeholder-shown:top-2 peer-focus:-top-6 -top-6 left-0;
+	}
 }

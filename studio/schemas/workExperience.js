@@ -3,7 +3,7 @@ export default {
 	title: 'Work Experience',
 	type: 'document',
 	fields: [
-		{ name: 'name', title: 'Name', type: 'string' },
+		{ name: 'role', title: 'Role', type: 'string' },
 		{ name: 'date', title: 'Date', type: 'string' },
 		{
 			name: 'company',
@@ -11,9 +11,16 @@ export default {
 			type: 'string',
 		},
 		{
-			name: 'description',
-			title: 'Description',
-			type: 'string',
+			name: 'duties',
+			title: 'Duties',
+			type: 'array',
+			of: [{ name: 'duty', title: 'Duty', type: 'string' }],
+		},
+		{
+			name: 'techStacks',
+			title: 'Tech Stacks',
+			type: 'array',
+			of: [{ name: 'teckStack', title: 'Tech Stack', type: 'string' }],
 		},
 	],
 };

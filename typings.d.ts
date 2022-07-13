@@ -23,3 +23,31 @@ export interface ProjectProp {
 	};
 	tags: [string];
 }
+
+export interface skillProp {
+	_id: string;
+	name: string;
+	shadowColor: string;
+	icon: {
+		asset: {
+			url: string;
+		};
+	};
+}
+
+export interface ExperienceProp {
+	_id?: string;
+	role: string;
+	company: string;
+	date: string;
+	duties: Array<string>;
+	techStacks: Array<string>;
+}
+
+export interface EducationProp {
+	_id?: string;
+	institution: string;
+	course: string;
+	date: string;
+	topics: Array<string>;
+}
