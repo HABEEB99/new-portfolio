@@ -10,7 +10,7 @@
 		scroll-behavior: smooth;
 	}
 	body {
-		@apply bg-light dark:bg-dark dark:text-light !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-gray-400 hover:scrollbar-thumb-gray-600;
+		@apply bg-light dark:bg-dark dark:text-light !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-gray-200 hover:scrollbar-thumb-gray-900;
 	}
 }
 

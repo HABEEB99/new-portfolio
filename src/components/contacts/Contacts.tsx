@@ -1,14 +1,67 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillPhone } from 'react-icons/ai';
 import { MdEmail } from 'react-icons/md';
 import { BiLink, BiMailSend } from 'react-icons/bi';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import Link from 'next/link';
+import emailjs from '@emailjs/browser';
 
 type ContactsProps = {};
 
 const Contacts: React.FC<ContactsProps> = () => {
+	const [isSubmitted, setIsSubmitted] = useState(false);
+
+	useEffect(() => {
+		if (isSubmitted) {
+			setInterval(() => setIsSubmitted(false), 5000);
+		}
+	}, [isSubmitted]);
+
+	const [formInputs, setFormInputs] = useState({
+		name: '',
+		phoneNumber: '',
+		email: '',
+		subject: '',
+		message: '',
+	});
+
+	const handleChange = (e: any) => {
+		e.preventDefault();
+
+		setFormInputs({
+			...formInputs,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const sendMail = (event: any) => {
+		event.preventDefault();
+		emailjs
+			.send(
+				'service_hxyir1g',
+				'template_7d8n2fj',
+				formInputs,
+				'user_DdmrQ6ZEsmIcoqdpkaGIL',
+			)
+			.then(
+				(response) => {
+					console.log('MESSAGE SUCCESSFULLY SENT', response);
+					setFormInputs({
+						name: '',
+						email: '',
+						phoneNumber: '',
+						subject: '',
+						message: '',
+					});
+					setIsSubmitted(true);
+				},
+				(error) => {
+					console.log('MESSAGE FAILED TO SUBMIT', error);
+				},
+			);
+	};
+
 	return (
 		<section className="min-h-screen pt-[11vh] py-4" id="contacts">
 			<div className="flex flex-col items-center space-y-1">
@@ -83,13 +136,16 @@ const Contacts: React.FC<ContactsProps> = () => {
 				</div>
 
 				<div className="flex flex-col p-2 mt-6 lg:mt-0  w-full lg:w-[70%] shadow-md shadow-dark dark:shadow-light">
-					<form className="p-3 w-full space-y-10">
+					<form onSubmit={sendMail} className="p-3 w-full space-y-10">
 						<div className="flex items-center space-x-4">
 							<div className="w-[50%] h-10 rounded-md relative mt-2">
 								<input
 									required
 									type="text"
 									id="name"
+									name="name"
+									value={formInputs.name}
+									onChange={handleChange}
 									placeholder="Name"
 									className="w-full placeholder-transparent peer h-full px-2 bg-gray-400 shadow-md focus:outline-none"
 								/>
@@ -103,6 +159,9 @@ const Contacts: React.FC<ContactsProps> = () => {
 									required
 									type="text"
 									id="phone number"
+									name="phoneNumber"
+									value={formInputs.phoneNumber}
+									onChange={handleChange}
 									placeholder="Phone Number"
 									className="w-full placeholder-transparent peer h-full px-2 bg-gray-400 shadow-md focus:outline-none"
 								/>
@@ -117,6 +176,9 @@ const Contacts: React.FC<ContactsProps> = () => {
 								required
 								type="email"
 								id="email"
+								name="email"
+								value={formInputs.email}
+								onChange={handleChange}
 								placeholder="Email"
 								className="w-full placeholder-transparent peer h-full px-2 bg-gray-400 shadow-md focus:outline-none"
 							/>
@@ -130,6 +192,9 @@ const Contacts: React.FC<ContactsProps> = () => {
 								required
 								type="text"
 								id="subject"
+								name="subject"
+								value={formInputs.subject}
+								onChange={handleChange}
 								placeholder="Subject"
 								className="w-full placeholder-transparent peer h-full px-2 bg-gray-400 shadow-md focus:outline-none"
 							/>
@@ -142,6 +207,9 @@ const Contacts: React.FC<ContactsProps> = () => {
 							<textarea
 								required
 								id="message"
+								name="message"
+								value={formInputs.message}
+								onChange={handleChange}
 								placeholder="Message"
 								className="w-full placeholder-transparent peer h-full px-2 bg-gray-400 shadow-md focus:outline-none"
 							/>
@@ -149,11 +217,21 @@ const Contacts: React.FC<ContactsProps> = () => {
 								Message
 							</label>
 						</div>
-
-						<button className="w-full h-12 hover:bg-white flex dark:bg-light dark:text-dark dark:hover:bg-white  dark:hover:text-dark items-center justify-center hover:text-dark transition-transform duration-300 ease-in-out  bg-btnLight text-white text-xl font-bold  rounded-md shadow-2xl">
-							Send Message
-							<BiMailSend className="text-2xl ml-2" />
-						</button>
+						{isSubmitted ? (
+							<div className="w-full h-12 flex items-center justify-center">
+								<span className="text-base text-green-500 animate-pulse font-bold">
+									Thanks! your message has been received.
+								</span>
+							</div>
+						) : (
+							<button
+								type="submit"
+								className="w-full h-12 hover:bg-white flex dark:bg-light dark:text-dark dark:hover:bg-white  dark:hover:text-dark items-center justify-center hover:text-dark transition-transform duration-300 ease-in-out  bg-btnLight text-white text-xl font-bold  rounded-md shadow-2xl"
+							>
+								Send Message
+								<BiMailSend className="text-2xl ml-2" />
+							</button>
+						)}
 					</form>
 				</div>
 			</div>
